@@ -6,6 +6,17 @@ use RestApi\Api\Models\Users;
 
 class IndexController extends RestController
 {
+    
+    /**
+     * @Get("/api/search/{find}/{limit}")
+     */
+    public function searchAction($find, $limit)
+    {
+        $Users  = new Users();
+        $result = $Users->FullText($find, $limit);
+        return $result;
+    }
+    
     /**
      * @Get("/api/install")
      */

@@ -2,13 +2,7 @@
 
 namespace RestApi\Api\Models;
 
-//CREATE TABLE `users` (
-//  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
-//  `firstname` varchar(70) NOT NULL,
-//  `secondname` varchar(70) NOT NULL,
-//  `surname` varchar(70) NOT NULL,
-//  PRIMARY KEY (`id`)
-//);
+use Phalcon\Db;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -17,11 +11,28 @@ class Users extends \Phalcon\Mvc\Model
     public $secondname;
     public $surname;
     
+    public function FullText($find, $limit)
+    {
+        $di = $this->getDI();
+        $db = $di['db'];
+    
+        $where = "to_tsvector(firstname || ' ' || secondname || ' ' || surname) @@ to_tsquery('".$find."')";// OR to_tsvector(secondname) @@ to_tsquery('".$find."') OR to_tsvector(surname) @@ to_tsquery('".$find."')";
+        $query = $db->query("SELECT * FROM users WHERE ".$where);
+        $query->setFetchMode(Db::FETCH_NUM);
+    
+        $Users = [];
+        while ($User = $query->fetch()) {
+            $Users[] = $User;
+        }
+        
+        return $Users;
+    }
+    
     public function initialize()
     {
         $this->setConnectionService('db');
     }
-    
+
 //    public function notSaved()
 //    {
 //        // Obtain the flash service from the DI container
