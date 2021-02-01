@@ -15,17 +15,17 @@
 5. Реализовать полнотекстовый поиск по данным из таблицы
 
 
-#Сервисы:
+# Сервисы:
 
-###GET /api/install
+### GET /api/install
 Первоначальная установка, заполнение БД случайными данными
-####response:
+#### response:
 - 200 - ok
 - 404 - error
 
-###GET /api/get/{id}
+### GET /api/get/{id}
 Получение данных о пользователе по его id
-####response:
+#### response:
 - 200 - ok
 ```
 [
@@ -39,9 +39,9 @@
 ```
 - 404 - error
 
-###GET  /api/list/{id}/{limit}
+### GET  /api/list/{id}/{limit}
 Получение данных о пользователях начиная с id и лимитом в выдаче limit
-####response:
+#### response:
 - 200 - ok
 ```
 [
@@ -55,9 +55,9 @@
 ```
 - 404 - error
 
-###GET /api/search/{find}/{limit}
+### GET /api/search/{find}/{limit}
 Получение данных о пользователях по строке find и лимитом в выдаче limit
-####response:
+#### response:
 - 200 - ok
 ```
 [
@@ -71,9 +71,9 @@
 ```
 - 404 - error
 
-###POST /api/post
+### POST /api/post
 Создание нового пользователя(ей), в ответ получение информации о пользователе с его id 
-####Body:
+#### Body:
 ```
 [
     {
@@ -83,7 +83,7 @@
     }
 ]
 ```
-####response:
+#### response:
 - 201 - ok
 ```
 [
@@ -97,9 +97,9 @@
 ```
 - 404 - error
 
-###PUT /api/put
+### PUT /api/put
 Изменение данных пользователя
-####Body:
+#### Body:
 ```
 [
     {
@@ -110,13 +110,13 @@
     }
 ]
 ```
-####response: 
+#### response: 
 - 201 - ok
 - 404 - error
 
-###DELETE /api/delete
+### DELETE /api/delete
 Удаление пользователя
-####Body:
+#### Body:
 ```
 [
     {
@@ -124,8 +124,6 @@
     }
 ]
 ```
-####response: 
+#### response: 
 - 201 - ok
 - 404 - error
-
-
