@@ -11,14 +11,15 @@ class Users extends \Phalcon\Mvc\Model
     public $secondname;
     public $surname;
     
-    public function FullText($find, $limit)
+    public function FullText($find, $id, $limit)
     {
         $di = $this->getDI();
         $db = $di['db'];
     
-        $where = "to_tsvector(firstname || ' ' || secondname || ' ' || surname) @@ to_tsquery('".$find."')";
-        $query = $db->query("SELECT * FROM users WHERE ".$where);
-        $query->setFetchMode(Db::FETCH_NUM);
+        $where = "to_tsvector(firstname || ' ' || secondname || ' ' || surname) @@ to_tsquery('".$find."') AND id > $id";
+        $limit = "LIMIT ".$limit;
+        $query = $db->query("SELECT * FROM users WHERE ".$where.' ORDER BY id '.$limit);
+        $query->setFetchMode(Db::FETCH_ASSOC);
     
         $Users = [];
         while ($User = $query->fetch()) {

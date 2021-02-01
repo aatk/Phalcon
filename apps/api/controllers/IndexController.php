@@ -8,12 +8,12 @@ class IndexController extends RestController
 {
     
     /**
-     * @Get("/api/search/{find}/{limit}")
+     * @Get("/api/search/{find}/{id}/{limit}")
      */
-    public function searchAction($find, $limit)
+    public function searchAction($find, $id, $limit)
     {
         $Users  = new Users();
-        $result = $Users->FullText($find, $limit);
+        $result = $Users->FullText($find, $id, $limit);
         return $result;
     }
     

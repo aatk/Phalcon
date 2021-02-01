@@ -28,36 +28,33 @@ let main = {
         $("#surname").attr("value", main.nowuser.surname);
     },
     
-    loaduserslist: function (limit)
+    
+    loaduserslist: function (data)
     {
-        let lastid = main.lastid + 1;
-        let url    = baseurl + '/api/list/' + lastid + '/' + limit;
-        
-        $.getJSON(url, function (data)
+        if (data.length < main.limit)
         {
-            if (data.length < main.limit)
-            {
-                $('#more').hide();
-            }
-            
-            $.each(data, function (key, val)
-            {
-                main.lastid = parseInt(val["id"]);
-                
-                main.nowuser = val;
-                main.InsertUserInList();
-            });
-            
-            $('.userclick').off("click").on("click", function (object)
-            {
-                main.onUserClick(object);
-            });
-            $('.deluser').off("click").on("click", function (object)
-            {
-                main.onUserDelete(object);
-            });
-            
-        })
+            $('#more').hide();
+        }
+        else
+        {
+            $('#more').show();
+        }
+        
+        $.each(data, function (key, val)
+        {
+            main.lastid  = parseInt(val["id"]);
+            main.nowuser = val;
+            main.InsertUserInList();
+        });
+        
+        $('.userclick').off("click").on("click", function (object)
+        {
+            main.onUserClick(object);
+        });
+        $('.deluser').off("click").on("click", function (object)
+        {
+            main.onUserDelete(object);
+        });
     },
     
     UpdateUserInList: function ()
@@ -78,7 +75,7 @@ let main = {
         item.push("<td class='deluser' data-userid='" + main.nowuser.id + "'><a type=\"button\" class=\"btn btn-outline-danger\">Del</a></td>");
         
         $("<tr/>", {
-            "class": "user",
+            "class"      : "user",
             "data-userid": main.nowuser.id,
             html         : item.join("")
         }).appendTo("tbody");
@@ -91,13 +88,54 @@ let main = {
         main.freeNowUser();
     },
     
+    FreeUsersTable: function ()
+    {
+        $("tbody").empty();
+        
+        main.freeNowUser();
+        main.lastid = 0;
+    },
     
+    
+    FullTextFind: function ()
+    {
+        let lastid = main.lastid + 1;
+        let find   = $("#findinput").val();
+        
+        if (find === "" )
+        {
+            //Ищем как обычно
+            main.FreeUsersTable();
+            main.onMoreClick();
+        } else
+        {
+            let url    = baseurl + '/api/search/' + find+ '/' + lastid + '/' + main.limit;
+            $.getJSON(url, function (data)
+            {
+                main.loaduserslist(data);
+                $('#more').off("click").on("click", main.FullTextFind);
+            });
+        }
+    },
     
     /** EVENTS **/
     
     onMoreClick: function ()
     {
-        main.loaduserslist(main.limit);
+        let lastid = main.lastid + 1;
+        let url    = baseurl + '/api/list/' + lastid + '/' + main.limit;
+        
+        $.getJSON(url, function (data)
+        {
+            main.loaduserslist(data);
+            $('#more').off("click").on("click", main.onMoreClick);
+        });
+    },
+    
+    onFindUsers: function ()
+    {
+        main.FreeUsersTable();
+        main.FullTextFind();
     },
     
     onUserClick: function (event)
@@ -202,9 +240,10 @@ let main = {
     
     onReady: function ()
     {
-        $('#more').on("click", main.onMoreClick);
+        $('#more').off("click").on("click", main.onMoreClick);
         main.onMoreClick();
         $('#adduser').on("click", main.onUserAdd);
+        $('#findusers').on("click", main.onFindUsers);
         $('#savechange').on("click", function (event)
         {
             main.onUserChange(event)

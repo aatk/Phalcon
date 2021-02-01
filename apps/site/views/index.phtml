@@ -12,7 +12,19 @@
 <body>
 
 <div class="container">
-    <button id="adduser" type="button" class="btn btn-success">Добавить</button>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button id="adduser" type="button" class="btn btn-success">Добавить</button>
+            </div>
+            <div class="col">
+                <input id="findinput" />
+                <button id="findusers" type="button" class="btn btn-primary">Найти</button>
+            </div>
+        </div>
+    </div>
+    
     <table class="table">
       <thead>
         <tr>
@@ -44,13 +56,13 @@
           <form id="userform">
             <input id="id" name="id" type="hidden" value=0 />
               <div class="form-group">
-                <input class="form-control" id="firstname" name="firstname" value="" placeholder="Имя"/>
+                <input class="form-control" id="firstname" name="firstname" value="" placeholder="Имя" />
               </div>
               <div class="form-group">
-                <input class="form-control" id="secondname" name="secondname" value="" placeholder="Фамилия"/>
+                <input class="form-control" id="secondname" name="secondname" value="" placeholder="Фамилия" />
               </div>
               <div class="form-group">
-                <input class="form-control" id="surname" name="surname" value="" placeholder="Отчество"/>
+                <input class="form-control" id="surname" name="surname" value="" placeholder="Отчество" />
               </div>
           </form>
       </div>
