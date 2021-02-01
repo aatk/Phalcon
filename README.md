@@ -55,8 +55,8 @@
 ```
 - 404 - error
 
-### GET /api/search/{find}/{limit}
-Получение данных о пользователях по строке find и лимитом в выдаче limit
+### GET /api/search/{find}/{id}/{limit}
+Получение данных о пользователях по строке find с позиции id[>] и лимитом в выдаче limit
 #### response:
 - 200 - ok
 ```
