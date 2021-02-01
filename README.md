@@ -18,13 +18,16 @@
 #Сервисы:
 
 ###GET /api/install
-- response:
-200 - ok
-404 - error
+Первоначальная установка, заполнение БД случайными данными
+####response:
+- 200 - ok
+- 404 - error
 
 ###GET /api/get/{id}
-- response:
-200 - ok
+Получение данных о пользователе по его id
+####response:
+- 200 - ok
+```
 [
     {
         "id" : 1,
@@ -33,11 +36,14 @@
         "surname" : "TEST"
     }
 ]
-404 - error
+```
+- 404 - error
 
 ###GET  /api/list/{id}/{limit}
-- response:
-200 - ok
+Получение данных о пользователях начиная с id и лимитом в выдаче limit
+####response:
+- 200 - ok
+```
 [
     {
         "id" : 1,
@@ -46,11 +52,14 @@
         "surname" : "TEST"
     }
 ]
-404 - error
+```
+- 404 - error
 
 ###GET /api/search/{find}/{limit}
-- response:
-200 - ok
+Получение данных о пользователях по строке find и лимитом в выдаче limit
+####response:
+- 200 - ok
+```
 [
     {
         "id" : 1,
@@ -59,10 +68,13 @@
         "surname" : "TEST"
     }
 ]
-404 - error
+```
+- 404 - error
 
 ###POST /api/post
-- Body:
+Создание нового пользователя(ей), в ответ получение информации о пользователе с его id 
+####Body:
+```
 [
     {
         "firstname" : "TEST",
@@ -70,8 +82,10 @@
         "surname" : "TEST"
     }
 ]
-- response:
-201 - ok
+```
+####response:
+- 201 - ok
+```
 [
     {
         "id" : 1,
@@ -80,10 +94,13 @@
         "surname" : "TEST"
     }
 ]
-404 - error
+```
+- 404 - error
 
 ###PUT /api/put
-- Body:
+Изменение данных пользователя
+####Body:
+```
 [
     {
         "id" : 1,
@@ -92,19 +109,23 @@
         "surname" : "TEST2"
     }
 ]
-- response: 
-201 - ok
-404 - error
+```
+####response: 
+- 201 - ok
+- 404 - error
 
 ###DELETE /api/delete
-- Body:
+Удаление пользователя
+####Body:
+```
 [
     {
         "id" : 1
     }
 ]
-- response: 
-201 - ok
-404 - error
+```
+####response: 
+- 201 - ok
+- 404 - error
 
 
