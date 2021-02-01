@@ -16,7 +16,7 @@ class Users extends \Phalcon\Mvc\Model
         $di = $this->getDI();
         $db = $di['db'];
     
-        $where = "to_tsvector(firstname || ' ' || secondname || ' ' || surname) @@ to_tsquery('".$find."')";// OR to_tsvector(secondname) @@ to_tsquery('".$find."') OR to_tsvector(surname) @@ to_tsquery('".$find."')";
+        $where = "to_tsvector(firstname || ' ' || secondname || ' ' || surname) @@ to_tsquery('".$find."')";
         $query = $db->query("SELECT * FROM users WHERE ".$where);
         $query->setFetchMode(Db::FETCH_NUM);
     
@@ -32,17 +32,5 @@ class Users extends \Phalcon\Mvc\Model
     {
         $this->setConnectionService('db');
     }
-
-//    public function notSaved()
-//    {
-//        // Obtain the flash service from the DI container
-//        //$flash = $this->getDI()->getFlash();
-//
-//        $messages = $this->getMessages();
-//
-//        // Show validation messages
-//        foreach ($messages as $message) {
-//            var_dump($message);
-//        }
-//    }
+    
 }
