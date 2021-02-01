@@ -17,17 +17,94 @@
 
 #Сервисы:
 
-GET /api/install
+###GET /api/install
+- response:
+200 - ok
+404 - error
 
-GET /api/get/{id}
+###GET /api/get/{id}
+- response:
+200 - ok
+[
+    {
+        "id" : 1,
+        "firstname" : "TEST",
+        "secondname" : "TEST",
+        "surname" : "TEST"
+    }
+]
+404 - error
 
-GET  /api/list/{id}/{limit}
+###GET  /api/list/{id}/{limit}
+- response:
+200 - ok
+[
+    {
+        "id" : 1,
+        "firstname" : "TEST",
+        "secondname" : "TEST",
+        "surname" : "TEST"
+    }
+]
+404 - error
 
-GET /api/search/{find}/{limit}
+###GET /api/search/{find}/{limit}
+- response:
+200 - ok
+[
+    {
+        "id" : 1,
+        "firstname" : "TEST",
+        "secondname" : "TEST",
+        "surname" : "TEST"
+    }
+]
+404 - error
 
-POST /api/post
+###POST /api/post
+- Body:
+[
+    {
+        "firstname" : "TEST",
+        "secondname" : "TEST",
+        "surname" : "TEST"
+    }
+]
+- response:
+201 - ok
+[
+    {
+        "id" : 1,
+        "firstname" : "TEST",
+        "secondname" : "TEST",
+        "surname" : "TEST"
+    }
+]
+404 - error
 
-PUT /api/put
+###PUT /api/put
+- Body:
+[
+    {
+        "id" : 1,
+        "firstname" : "TEST2",
+        "secondname" : "TEST2",
+        "surname" : "TEST2"
+    }
+]
+- response: 
+201 - ok
+404 - error
 
-DELETE /api/delete
+###DELETE /api/delete
+- Body:
+[
+    {
+        "id" : 1
+    }
+]
+- response: 
+201 - ok
+404 - error
+
 
