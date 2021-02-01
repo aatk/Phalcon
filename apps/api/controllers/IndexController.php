@@ -8,20 +8,11 @@ class IndexController extends RestController
 {
     
     /**
-     * @Get("/api/search/{find}/{id}/{limit}")
-     */
-    public function searchAction($find, $id, $limit)
-    {
-        $Users  = new Users();
-        $result = $Users->FullText($find, $id, $limit);
-        return $result;
-    }
-    
-    /**
      * @Get("/api/install")
      */
     public function installAction()
     {
+        $maxcount = 1000;
         $firstnames  = [ "Александр", "Иван", "Максим", "Олег", "Марат", "Людмила", "Оксана" ];
         $secondnames = [ "Ткаченко", "Жуков", "Чкалов", "Путин", "Шамузинов", "Дахно", "Карась" ];
         $surnames    = [ "Александрович", "Иванович", "Максимович", "Олегович", "Маратович", "Евгеньевич", "Джонович" ];
@@ -30,9 +21,9 @@ class IndexController extends RestController
         $count = $Users::count();
         
         $res = false;
-        if ($count < 10)
+        if ($count < $maxcount)
         {
-            for ($next_item = $count; $next_item < 100; $next_item++)
+            for ($next_item = $count; $next_item < $maxcount; $next_item++)
             {
                 //заполним таблицу
                 $rnd_f  = rand(0, 6);
@@ -44,11 +35,6 @@ class IndexController extends RestController
                 $Users->secondname = $secondnames[$rnd_s];
                 $Users->surname    = $surnames[$rnd_ss];
                 $res               = $Users->save();
-//                if (!$res) {
-//                    $error = $this->di['db']->getErrorInfo();
-//                    print_r($error);
-//                }
-//                var_dump($res);
             }
         }
         
@@ -95,6 +81,17 @@ class IndexController extends RestController
         
         return $result;
     }
+    
+    /**
+     * @Get("/api/search/{find}/{id}/{limit}")
+     */
+    public function searchAction($find, $id, $limit)
+    {
+        $Users  = new Users();
+        $result = $Users->FullText($find, $id, $limit);
+        return $result;
+    }
+    
     
     private function saveUsers($json)
     {
